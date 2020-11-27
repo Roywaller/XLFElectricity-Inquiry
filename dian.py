@@ -88,5 +88,5 @@ data = {
 
 req = requests.post(api,data = data)
 
-with open("README.md","a") as f:
-        f.write(str(result_list) + '  ')
+#with open("README.md","a") as f:
+#        f.write(str(result_list) + '  ')
