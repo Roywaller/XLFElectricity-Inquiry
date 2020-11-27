@@ -5,6 +5,11 @@ import http.client
 import pandas as pd
 import requests
 import time
+import datetime
+import pytz
+
+tz = pytz.timezone('Asia/Shanghai') #东八区
+t = datetime.datetime.fromtimestamp(int(time.time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
 
 conn = http.client.HTTPConnection("beijingxuanlifang.qdxyjt.com")
 
@@ -62,7 +67,7 @@ LeftNum=''.join(df[3][1])
 
 LastDate=''.join(df[1][4])
 
-result_list = [[RoomNum,SysNum,TotNum,LeftNum,LastDate,time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))]]
+result_list = [[RoomNum,SysNum,TotNum,LeftNum,LastDate,t]]
 
 columns = ["房间号", "系统编号", "表字", "购电剩余", "上次通讯时间","记录时间"]
 
