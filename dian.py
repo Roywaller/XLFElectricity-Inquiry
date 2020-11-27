@@ -89,4 +89,4 @@ dt.to_csv("Records.csv",header=None, index=0, encoding='utf_8_sig', mode='a')
 #req = requests.post(api,data = data)
 
 with open("README.md","a") as f:
-        f.write(str(result_list) + '\n')
+        f.write(str(result_list) + '  ')
