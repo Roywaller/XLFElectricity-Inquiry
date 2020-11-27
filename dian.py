@@ -70,18 +70,18 @@ dt = pd.DataFrame(result_list, columns=columns)
 
 dt.to_csv("Records.csv",header=None, index=0, encoding='utf_8_sig', mode='a')
 
-api = "https://sc.ftqq.com/SCU3867T339ca212371e4f0e4d1273832086e69b582bfec6dd91b.send"
+#api = "https://sc.ftqq.com/SCU3867T339ca212371e4f0e4d1273832086e69b582bfec6dd91b.send"
 
-title = u"电量通知"
+#title = u"电量通知"
 
-content = ""+out1+""
+#content = ""+out1+""
 
-data = {
-   "text":title,
-   "desp":content
-}
+#data = {
+#   "text":title,
+#   "desp":content
+#}
 
-req = requests.post(api,data = data)
+#req = requests.post(api,data = data)
 
 with open("README.md","a") as f:
         f.write(str(result_list) + '\n')
