@@ -7,7 +7,7 @@ on:
   watch:
     types: started
   schedule:
-    #格林尼治时间22：11，东八区北京时间6：11
+    #每2小时运行一次
     - cron: 0 */2 * * *
 
 jobs:
@@ -25,3 +25,14 @@ jobs:
         run: |
           python3 dian.py
           
+      - name: commit
+        run: |
+          git config --global user.email roywaller@126.com
+          git config --global user.name roywaller
+          git add .
+          git commit -m "update" -a
+		
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
