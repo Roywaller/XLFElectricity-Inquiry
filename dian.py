@@ -89,4 +89,4 @@ if LastDate != lastimeres:
 	}
 	req = requests.post(api,data = data)
 else:
-   exit()
+   print ("数据未更新")
