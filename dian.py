@@ -73,20 +73,20 @@ columns = ["房间号", "系统编号", "表字", "购电剩余", "上次通讯�
 
 dt = pd.DataFrame(result_list, columns=columns)
 
-dt.to_csv("Records.csv",header=None, index=0, encoding='utf_8_sig', mode='a')
+lastimeres = pd.read_csv("Records.csv").iloc[-1]["上次通讯时间"]
 
-api = "https://sc.ftqq.com/SCU3867T339ca212371e4f0e4d1273832086e69b582bfec6dd91b.send"
-
-title = u"电量通知"
-
-content = ""+out1+""
-
-data = {
-   "text":title,
-   "desp":content
-}
-
-req = requests.post(api,data = data)
-
-#with open("README.md","a") as f:
-#        f.write(str(result_list) + '  ')
+if LastDate != lastimeres:
+	dt.to_csv("Records.csv",header=None, index=0, encoding='utf_8_sig', mode='a')
+	
+	api = "https://sc.ftqq.com/SCU3867T339ca212371e4f0e4d1273832086e69b582bfec6dd91b.send"
+	
+	title = u"电量通知"
+	
+	content = ""+out1+""
+	data = {
+	"text":title,
+	"desp":content
+	}
+	req = requests.post(api,data = data)
+else:
+   exit()
