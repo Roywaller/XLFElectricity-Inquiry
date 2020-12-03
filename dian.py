@@ -67,9 +67,13 @@ LeftNum=''.join(df[3][1])
 
 LastDate=''.join(df[1][4])
 
-result_list = [[RoomNum,SysNum,TotNum,LeftNum,LastDate,t]]
+LastUsed = pd.read_csv("Records.csv").iloc[-1]["表字"]
 
-columns = ["房间号", "系统编号", "表字", "购电剩余", "上次通讯时间","记录时间"]
+Used = round(float(TotNum) - float(LastUsed),3)
+
+result_list = [[RoomNum,SysNum,TotNum,Used,LeftNum,LastDate,t]]
+
+columns = ["房间号", "系统编号", "表字", "当前已用", "购电剩余", "上次通讯时间","记录时间"]
 
 dt = pd.DataFrame(result_list, columns=columns)
 
@@ -88,5 +92,7 @@ if LastDate != lastimeres:
 	"desp":content
 	}
 	req = requests.post(api,data = data)
+	print (float(LastUsed),float(TotNum),Used)
 else:
    print ("数据未更新")
+   print (float(LastUsed),float(TotNum),Used)
