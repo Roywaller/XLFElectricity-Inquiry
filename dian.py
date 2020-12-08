@@ -94,109 +94,206 @@ if LastDate != lastimeres:
 	f = open(GEN_HTML,'w')
 	message = """
 	<!DOCTYPE html>
-	<html style="height: 100%%">
-	<head>
-	<meta charset="utf-8">
-	</head>
-	<body style="height: 100%%; margin: 0">
-	<div id="container" style="height: 100%%"></div>
-	
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-	<!-- Uncomment this line if you want to dataTool extension
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
-	-->
-	<!-- Uncomment this line if you want to use gl extension
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@2.0.0-rc.1/dist/echarts-gl.min.js"></script>
-	-->
-	<!-- Uncomment this line if you want to echarts-stat extension
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
-	-->
-	<!-- Uncomment this line if you want to use map
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/world.js"></script>
-	-->
-	<!-- Uncomment these two lines if you want to use bmap extension
-	<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<Your Key Here>"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
-	-->
-	
-	<script type="text/javascript">
-	var dom = document.getElementById("container");
-	var myChart = echarts.init(dom);
-	var app = {};
-	
-	var option;
-	option = {
-	title: {
-	text: '用电分布记录',
-	subtext: ''
-	},
-	tooltip: {
-	trigger: 'axis',
-	axisPointer: {
-	type: 'cross'
-	}
-	},
-	toolbox: {
-	show: true,
-	feature: {
-	dataZoom: {
-	yAxisIndex: 'none'
-	},
-	dataView: {readOnly: false},
-	magicType: {type: ['line', 'bar']},
-	restore: {},
-	saveAsImage: {}
-	}
-	},
-	xAxis: {
-	type: 'category',
-	boundaryGap: false,
-	axisLabel: {
-	//rotate:45,
-	interval:3,
-	formatter:function(val){
+
+    <html style="height: 100%%">
+
+    <head>
+
+    <meta charset="utf-8">
+
+    </head>
+
+    <body style="height: 100%%; margin: 0">
+
+    <div id="container" style="height: 100%%"></div>
+
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+    <!-- Uncomment this line if you want to dataTool extension
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+
+    -->
+
+    <!-- Uncomment this line if you want to use gl extension
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@2.0.0-rc.1/dist/echarts-gl.min.js"></script>
+
+    -->
+
+    <!-- Uncomment this line if you want to echarts-stat extension
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+
+    -->
+
+    <!-- Uncomment this line if you want to use map
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/world.js"></script>
+
+    -->
+
+    <!-- Uncomment these two lines if you want to use bmap extension
+
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<Your Key Here>"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+
+    -->
+
+    
+
+    <script type="text/javascript">
+
+    var dom = document.getElementById("container");
+
+    var myChart = echarts.init(dom);
+
+    var app = {};
+
+    
+
+    var option;
+
+    option = {
+
+    title: {
+
+    text: '用电分布记录',
+
+    subtext: ''
+
+    },
+
+    tooltip: {
+
+    trigger: 'axis',
+
+    axisPointer: {
+
+    type: 'cross'
+
+    }
+
+    },
+
+    toolbox: {
+
+    show: true,
+
+    feature: {
+
+    dataZoom: {
+
+    yAxisIndex: 'none'
+
+    },
+
+    dataView: {readOnly: false},
+
+    magicType: {type: ['line', 'bar']},
+
+    restore: {},
+
+    saveAsImage: {}
+
+    }
+
+    },
+
+    xAxis: {
+
+    type: 'category',
+
+    boundaryGap: false,
+
+    axisLabel: {
+
+    //rotate:45,
+
+    interval:3,
+
+    formatter:function(val){
+
         var strs = val.split(''); //字符串数组
+
         var str = ''
+
         for(var i = 0, s; s = strs[i++];) { //遍历字符串数组
+
         str += s;
-        if(!(i % 10)) str += '\n'; //按需要求余
-	}
-	return str
-	}},
-	data: %s
-	},
-	yAxis: {
-	type: 'value',
-	axisLabel: {
-	formatter: '{value} kW·h'
-	},
-	axisPointer: {
-	snap: true
-	}
-	},
-	series: [
-	{
-	name: '时段用电量',
-	type: 'line',
-	smooth: true,
-	itemStyle : { normal: {label : {show: true}}},
-	data: %s,
-	}
-	]
-	};
-	
-	
-	
-	
-	if (option && typeof option === 'object') {
-	myChart.setOption(option);
-	}
-	window.onresize = myChart.resize;
-	
-	</script>
-	</body>
-	</html>"""%(str_1,str_2)
+
+        if(!(i %% 10)) str += '\n'; //按需要求余
+
+    }
+
+    return str
+
+    }},
+
+    data: %s
+
+    },
+
+    yAxis: {
+
+    type: 'value',
+
+    axisLabel: {
+
+    formatter: '{value} kW·h'
+
+    },
+
+    axisPointer: {
+
+    snap: true
+
+    }
+
+    },
+
+    series: [
+
+    {
+
+    name: '时段用电量',
+
+    type: 'line',
+
+    smooth: true,
+
+    itemStyle : { normal: {label : {show: true}}},
+
+    data: %s,
+
+    }
+
+    ]
+
+    };
+
+    
+
+    if (option && typeof option === 'object') {
+
+    myChart.setOption(option);
+
+    }
+
+    window.onresize = myChart.resize;
+
+    
+
+    </script>
+
+    </body>
+
+    </html>"""%(str_1,str_2)
 	
 	
 	f.write(message)
