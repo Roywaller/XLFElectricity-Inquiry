@@ -152,6 +152,18 @@ if LastDate != lastimeres:
 	xAxis: {
 	type: 'category',
 	boundaryGap: false,
+	axisLabel: {
+	//rotate:45,
+	interval:3,
+	formatter:function(val){
+        var strs = val.split(''); //字符串数组
+        var str = ''
+        for(var i = 0, s; s = strs[i++];) { //遍历字符串数组
+        str += s;
+        if(!(i % 10)) str += '\n'; //按需要求余
+	}
+	return str
+	}},
 	data: %s
 	},
 	yAxis: {
