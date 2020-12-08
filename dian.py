@@ -53,7 +53,7 @@ tables = pd.read_html(data.decode("utf-8"))
 
 df = tables[1]
 
-out=df[2][0],':',df[3][0],'\n\n',df[0][0],':',df[1][0],'\n\n',df[0][1],':',df[1][1],'\n\n',df[2][1],':',df[3][1],'\n\n',df[0][4],':',df[1][4]
+out=df[2][0],':',df[3][0],'\n\n',df[0][0],':',df[1][0],'\n\n',df[0][1],':',df[1][1],'\n\n',df[2][1],':',df[3][1],'\n\n',df[0][4],':',df[1][4],'\n\n',"https://roywaller.github.io/XLFElectricity-Inquiry/Records.html"
 
 out1=''.join(out)
 
@@ -129,7 +129,7 @@ if LastDate != lastimeres:
 	option = {
 	title: {
 	text: '用电分布记录',
-	subtext: '1-939'
+	subtext: ''
 	},
 	tooltip: {
 	trigger: 'axis',
