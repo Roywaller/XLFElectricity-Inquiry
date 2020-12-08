@@ -227,7 +227,7 @@ if LastDate != lastimeres:
 
         str += s;
 
-        if(!(i %% 10)) str += '\n'; //按需要求余
+        if(!(i %% 10)) str += '\\n'; //按需要求余
 
     }
 
