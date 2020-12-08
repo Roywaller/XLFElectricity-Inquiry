@@ -81,6 +81,105 @@ lastimeres = pd.read_csv("Records.csv").iloc[-1]["上次通讯时间"]
 
 if LastDate != lastimeres:
 	dt.to_csv("Records.csv",header=None, index=0, encoding='utf_8_sig', mode='a')
+	csv=pd.read_csv("Records.csv")
+	
+	used = csv["当前已用"].values.tolist()
+	lastime = csv["上次通讯时间"].values.tolist()
+	
+	GEN_HTML = "Records.html"  #命名生成的html
+	
+	str_1 = lastime
+	str_2 = used
+	
+	f = open(GEN_HTML,'w')
+	message = """
+	<!DOCTYPE html>
+	<html style="height: 100%%">
+	<head>
+	<meta charset="utf-8">
+	</head>
+	<body style="height: 100%%; margin: 0">
+	<div id="container" style="height: 100%%"></div>
+	
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+	<!-- Uncomment this line if you want to dataTool extension
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+	-->
+	<!-- Uncomment this line if you want to use gl extension
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@2.0.0-rc.1/dist/echarts-gl.min.js"></script>
+	-->
+	<!-- Uncomment this line if you want to echarts-stat extension
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+	-->
+	<!-- Uncomment this line if you want to use map
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/map/js/world.js"></script>
+	-->
+	<!-- Uncomment these two lines if you want to use bmap extension
+	<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<Your Key Here>"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+	-->
+	
+	<script type="text/javascript">
+	var dom = document.getElementById("container");
+	var myChart = echarts.init(dom);
+	var app = {};
+	
+	var option;
+	option = {
+	title: {
+	text: '用电分布记录',
+	subtext: '1-939'
+	},
+	tooltip: {
+	trigger: 'axis',
+	axisPointer: {
+	type: 'cross'
+	}
+	},
+	toolbox: {
+	show: true,
+	feature: {
+	saveAsImage: {}
+	}
+	},
+	xAxis: {
+	type: 'category',
+	boundaryGap: false,
+	data: %s
+	},
+	yAxis: {
+	type: 'value',
+	axisLabel: {
+	formatter: '{value} kW·h'
+	},
+	axisPointer: {
+	snap: true
+	}
+	},
+	series: [
+	{
+	name: '时段用电量',
+	type: 'line',
+	smooth: true,
+	data: %s,
+	}
+	]
+	};
+	
+	
+	
+	
+	if (option && typeof option === 'object') {
+	myChart.setOption(option);
+	}
+	
+	</script>
+	</body>
+	</html>"""%(str_1,str_2)
+	
+	f.write(message)
+	f.close()
 	
 	api = "https://sc.ftqq.com/SCU3867T339ca212371e4f0e4d1273832086e69b582bfec6dd91b.send"
 	
@@ -92,7 +191,5 @@ if LastDate != lastimeres:
 	"desp":content
 	}
 	req = requests.post(api,data = data)
-	print (float(LastUsed),float(TotNum),Used)
 else:
    print ("数据未更新")
-   print (float(LastUsed),float(TotNum),Used)
