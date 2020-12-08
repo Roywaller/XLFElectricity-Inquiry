@@ -2,6 +2,7 @@
 
 #炫立方用电量查询
 
+#[查看图表](https://roywaller.github.io/XLFElectricity-Inquiry/Records.html)
 
    #更新日志
 
