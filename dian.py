@@ -198,6 +198,7 @@ if LastDate != lastimeres:
 	</body>
 	</html>"""%(str_1,str_2)
 	
+	
 	f.write(message)
 	f.close()
 	
