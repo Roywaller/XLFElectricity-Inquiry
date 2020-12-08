@@ -140,6 +140,12 @@ if LastDate != lastimeres:
 	toolbox: {
 	show: true,
 	feature: {
+	dataZoom: {
+	yAxisIndex: 'none'
+	},
+	dataView: {readOnly: false},
+	magicType: {type: ['line', 'bar']},
+	restore: {},
 	saveAsImage: {}
 	}
 	},
@@ -162,6 +168,7 @@ if LastDate != lastimeres:
 	name: '时段用电量',
 	type: 'line',
 	smooth: true,
+	itemStyle : { normal: {label : {show: true}}},
 	data: %s,
 	}
 	]
@@ -173,6 +180,7 @@ if LastDate != lastimeres:
 	if (option && typeof option === 'object') {
 	myChart.setOption(option);
 	}
+	window.onresize = myChart.resize;
 	
 	</script>
 	</body>
