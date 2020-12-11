@@ -53,9 +53,9 @@ tables = pd.read_html(data.decode("utf-8"))
 
 df = tables[1]
 
-out=df[2][0],':',df[3][0],'\n\n',df[0][0],':',df[1][0],'\n\n',df[0][1],':',df[1][1],'\n\n',df[2][1],':',df[3][1],'\n\n',df[0][4],':',df[1][4],'\n\n',"https://roywaller.github.io/XLFElectricity-Inquiry/Records.html"
+#out=df[2][0],':',df[3][0],'\n\n',df[0][0],':',df[1][0],'\n\n',df[0][1],':',df[1][1],'\n\n',df[2][1],':',df[3][1],'\n\n',df[0][4],':',df[1][4],'\n\n',"https://roywaller.github.io/XLFElectricity-Inquiry/Records.html"
 
-out1=''.join(out)
+#out1=''.join(out)
 
 RoomNum=''.join(df[3][0])
 
@@ -78,6 +78,8 @@ columns = ["房间号", "系统编号", "表字", "当前已用", "购电剩余"
 dt = pd.DataFrame(result_list, columns=columns)
 
 lastimeres = pd.read_csv("Records.csv").iloc[-1]["上次通讯时间"]
+
+content = '房间号:'+RoomNum+'\n\n系统编号:'+SysNum+'\n\表字:'+TotNum+'\n\当前已用:'+Used+'\n\购电剩余:'+LeftNum+'\n\上次通讯时间:'+LastDate+'\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html'
 
 if LastDate != lastimeres:
 	dt.to_csv("Records.csv",header=None, index=0, encoding='utf_8_sig', mode='a')
@@ -303,7 +305,7 @@ if LastDate != lastimeres:
 	
 	title = u"电量通知"
 	
-	content = ""+out1+""
+#	content = ""+out1+""
 	data = {
 	"text":title,
 	"desp":content
