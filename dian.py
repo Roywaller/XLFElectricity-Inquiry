@@ -78,8 +78,7 @@ columns = ["房间号", "系统编号", "表字", "当前已用", "购电剩余"
 dt = pd.DataFrame(result_list, columns=columns)
 
 lastimeres = pd.read_csv("Records.csv").iloc[-1]["上次通讯时间"]
-
-content = str('房间号:'+RoomNum+'\n\n系统编号:'+SysNum+'\n\表字:'+TotNum+'\n\当前已用:'+Used+'\n\购电剩余:'+LeftNum+'\n\上次通讯时间:'+LastDate+'\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html')
+content = "房间号:"+RoomNum+"\n\n系统编号:"+SysNum+"\n\n表字:"+TotNum+"\n\n当前已用:"+str(Used)+"\n\n购电剩余:"+LeftNum+"\n\n上次通讯时间:"+LastDate+"\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html"
 
 if LastDate != lastimeres:
 	dt.to_csv("Records.csv",header=None, index=0, encoding='utf_8_sig', mode='a')
