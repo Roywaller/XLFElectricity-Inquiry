@@ -312,3 +312,44 @@ if LastDate != lastimeres:
 	req = requests.post(api,data = data)
 else:
    print ("数据未更新")
+
+conn = http.client.HTTPConnection("wmwechat.hownewiot.com")
+
+headers = {
+    'dnt': "1",
+    'upgrade-insecure-requests': "1",
+    'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
+    'accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    'client-ip': "127.0.0.1",
+    'true-client-ip': "127.0.0.1",
+    'x-client-ip': "127.0.0.1",
+    'x-forwarded-for': "127.0.0.1",
+    'x-real-ip': "127.0.0.1",
+    'x-remote-ip': "127.0.0.1",
+    'x-remote-addr': "127.0.0.1",
+    'cache-control': "no-cache",
+    'postman-token': "25c5aab5-5328-1f3a-1bdc-b65395806b8e"
+}
+
+conn.request("GET", "/bj002/weixin/comm/waterUseFeeInfo.do?weChatNo=oYBnwvxMuMxlcQEw9Fvyqo0Sgya4", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+tables = pd.read_html(data.decode("utf-8"))
+df = tables[0]
+setime = df['结算时间'][0]
+sewatervol = df['结算水量(m³)'][0]
+sewaterfee = df['结算水费'][0]
+balance = df['剩余金额'][0]
+cumread = df['累计读数(m³)'][0]
+result_list = [[setime, sewatervol, sewaterfee, balance, cumread]]
+columns = ["结算时间", "结算水量(m³)", "结算水费", "剩余金额", "累计读数(m³)"]
+dt = pd.DataFrame(result_list, columns=columns)
+lastimeres = pd.read_csv("water.csv").iloc[-1]["结算时间"]
+if setime != lastimeres:
+    print(result_list)
+    dt.to_csv("water.csv", header=None, index=0, encoding='utf_8_sig', mode='a')
+    csv = pd.read_csv("water.csv")
+else:
+    print("数据未更新")
