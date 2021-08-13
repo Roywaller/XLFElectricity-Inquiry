@@ -300,7 +300,7 @@ if LastDate != lastimeres:
 	f.write(message)
 	f.close()
 	
-	api = "https://sc.ftqq.com/SCU3867T339ca212371e4f0e4d1273832086e69b582bfec6dd91b.send"
+	api = "https://sctapi.ftqq.com/SCT62936TXA1lLED0i5z9u5qmYceyWavU.send"
 	
 	title = u"电量通知"
 	
