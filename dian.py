@@ -344,7 +344,7 @@ else:
     print("数据未更新")
 
 test = '123'
-content = "用电情况\n\n房间号:" + test + "\n\n系统编号:" + test + "\n\n累计表字:" + test + "\n\n当前已用:" + test + \
+content = "用电情况\n\n房间号:" + RoomNum + "\n\n系统编号:" + SysNum + "\n\n累计表字:" + TotNum + "\n\n当前已用:" + Used + \
           "\n\n购电剩余:" + test + "\n\n上次通讯时间:" + test + "\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html" + \
           "\n\n\n\n用水情况\n\n结算时间：" + test + "\n\n累计读数：" + test + "\n\n结算水量：" + test + "\n\n剩余金额：" + test
 
@@ -353,7 +353,7 @@ content = "用电情况\n\n房间号:" + test + "\n\n系统编号:" + test + "\n
 #          "\n\n\n\n用水情况\n\n结算时间：" + setime + "\n\n累计读数：" + cumread + "\n\n结算水量：" + sewatervol + "\n\n剩余金额：" + balance
 print(content)
 api = "https://sctapi.ftqq.com/SCT62936TXA1lLED0i5z9u5qmYceyWavU.send"
-title = u"购电剩余：" + LeftNum + u"购水剩余：" + balance
+title = u"购电剩余：" + test + u"购水剩余：" + test
 data = {
     "text": title,
     "desp": content
