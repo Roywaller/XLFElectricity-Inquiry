@@ -341,8 +341,9 @@ if setime != lastimeres:
 else:
     print("数据未更新")
 
-content = "用电情况\n\n房间号:" + RoomNum + "\n\n系统编号:" + SysNum + "\n\n累计表字:" + TotNum + "\n\n当前已用:" + str(
-    Used) + "\n\n购电剩余:" + LeftNum + "\n\n上次通讯时间:" + LastDate + "\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html" + "\n\n\n\n用水情况\n\n结算时间：" + setime + "\n\n累计读数：" + cumread + "\n\n结算水量：" + sewatervol + "\n\n剩余金额：" + balance
+content = str("用电情况\n\n房间号:" + RoomNum + "\n\n系统编号:" + SysNum + "\n\n累计表字:" + TotNum + "\n\n当前已用:" + str(Used) + \
+          "\n\n购电剩余:" + LeftNum + "\n\n上次通讯时间:" + LastDate + "\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html" + \
+          "\n\n\n\n用水情况\n\n结算时间：" + setime + "\n\n累计读数：" + cumread + "\n\n结算水量：" + sewatervol + "\n\n剩余金额：" + balance)
 
 api = "https://sctapi.ftqq.com/SCT62936TXA1lLED0i5z9u5qmYceyWavU.send"
 title = u"购电剩余：" + LeftNum + u"购水剩余：" + balance
