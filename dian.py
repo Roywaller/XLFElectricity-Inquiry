@@ -8,7 +8,7 @@ import time
 import datetime
 import pytz
 
-tz = pytz.timezone('Asia/Shanghai') #东八区
+tz = pytz.timezone('Asia/Shanghai')  # 东八区
 t = datetime.datetime.fromtimestamp(int(time.time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
 
 conn = http.client.HTTPConnection("beijingxuanlifang.qdxyjt.com")
@@ -41,7 +41,7 @@ headers = {
     'x-remote-addr': "127.0.0.1",
 
     'cache-control': "no-cache"
-    }
+}
 
 conn.request("POST", "/Default.aspx", payload, headers)
 
@@ -53,47 +53,48 @@ tables = pd.read_html(data.decode("utf-8"))
 
 df = tables[1]
 
-#out=df[2][0],':',df[3][0],'\n\n',df[0][0],':',df[1][0],'\n\n',df[0][1],':',df[1][1],'\n\n',df[2][1],':',df[3][1],'\n\n',df[0][4],':',df[1][4],'\n\n',"https://roywaller.github.io/XLFElectricity-Inquiry/Records.html"
+# out=df[2][0],':',df[3][0],'\n\n',df[0][0],':',df[1][0],'\n\n',df[0][1],':',df[1][1],'\n\n',df[2][1],':',df[3][1],'\n\n',df[0][4],':',df[1][4],'\n\n',"https://roywaller.github.io/XLFElectricity-Inquiry/Records.html"
 
-#out1=''.join(out)
+# out1=''.join(out)
 
-RoomNum=''.join(df[3][0])
+RoomNum = ''.join(df[3][0])
 
-SysNum=''.join(df[1][0])
+SysNum = ''.join(df[1][0])
 
-TotNum=''.join(df[1][1])
+TotNum = ''.join(df[1][1])
 
-LeftNum=''.join(df[3][1])
+LeftNum = ''.join(df[3][1])
 
-LastDate=''.join(df[1][4])
+LastDate = ''.join(df[1][4])
 
 LastUsed = pd.read_csv("Records.csv").iloc[-1]["表字"]
 
-Used = round(float(TotNum) - float(LastUsed),3)
+Used = round(float(TotNum) - float(LastUsed), 3)
 
-result_list = [[RoomNum,SysNum,TotNum,Used,LeftNum,LastDate,t]]
+result_list = [[RoomNum, SysNum, TotNum, Used, LeftNum, LastDate, t]]
 
-columns = ["房间号", "系统编号", "表字", "当前已用", "购电剩余", "上次通讯时间","记录时间"]
+columns = ["房间号", "系统编号", "表字", "当前已用", "购电剩余", "上次通讯时间", "记录时间"]
 
 dt = pd.DataFrame(result_list, columns=columns)
 
 lastimeres = pd.read_csv("Records.csv").iloc[-1]["上次通讯时间"]
-content = "房间号:"+RoomNum+"\n\n系统编号:"+SysNum+"\n\n表字:"+TotNum+"\n\n当前已用:"+str(Used)+"\n\n购电剩余:"+LeftNum+"\n\n上次通讯时间:"+LastDate+"\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html"
+#content = "房间号:" + RoomNum + "\n\n系统编号:" + SysNum + "\n\n表字:" + TotNum + "\n\n当前已用:" + str(
+#    Used) + "\n\n购电剩余:" + LeftNum + "\n\n上次通讯时间:" + LastDate + "\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html"
 
 if LastDate != lastimeres:
-	dt.to_csv("Records.csv",header=None, index=0, encoding='utf_8_sig', mode='a')
-	csv=pd.read_csv("Records.csv")
-	
-	used = csv["当前已用"].values.tolist()
-	lastime = csv["上次通讯时间"].values.tolist()
-	
-	GEN_HTML = "Records.html"  #命名生成的html
-	
-	str_1 = lastime
-	str_2 = used
-	
-	f = open(GEN_HTML,'w')
-	message = """
+    dt.to_csv("Records.csv", header=None, index=0, encoding='utf_8_sig', mode='a')
+    csv = pd.read_csv("Records.csv")
+
+    used = csv["当前已用"].values.tolist()
+    lastime = csv["上次通讯时间"].values.tolist()
+
+    GEN_HTML = "Records.html"  # 命名生成的html
+
+    str_1 = lastime
+    str_2 = used
+
+    f = open(GEN_HTML, 'w')
+    message = """
 	<!DOCTYPE html>
 
     <html style="height: 100%%">
@@ -108,7 +109,7 @@ if LastDate != lastimeres:
 
     <div id="container" style="height: 100%%"></div>
 
-    
+
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 
@@ -146,7 +147,7 @@ if LastDate != lastimeres:
 
     -->
 
-    
+
 
     <script type="text/javascript">
 
@@ -156,7 +157,7 @@ if LastDate != lastimeres:
 
     var app = {};
 
-    
+
 
     var option;
 
@@ -278,7 +279,7 @@ if LastDate != lastimeres:
 
     };
 
-    
+
 
     if (option && typeof option === 'object') {
 
@@ -288,30 +289,15 @@ if LastDate != lastimeres:
 
     window.onresize = myChart.resize;
 
-    
+
 
     </script>
 
     </body>
 
-    </html>"""%(str_1,str_2)
-	
-	
-	f.write(message)
-	f.close()
-	
-	api = "https://sctapi.ftqq.com/SCT62936TXA1lLED0i5z9u5qmYceyWavU.send"
-	
-	title = u"电量通知"
-	
-#	content = ""+out1+""
-	data = {
-	"text":title,
-	"desp":content
-	}
-	req = requests.post(api,data = data)
+    </html>""" % (str_1, str_2)
 else:
-   print ("数据未更新")
+    print("数据未更新")
 
 conn = http.client.HTTPConnection("wmwechat.hownewiot.com")
 
@@ -332,7 +318,6 @@ headers = {
 }
 
 conn.request("GET", "/bj002/weixin/comm/waterUseFeeInfo.do?weChatNo=oYBnwvxMuMxlcQEw9Fvyqo0Sgya4", headers=headers)
-
 res = conn.getresponse()
 data = res.read()
 
@@ -353,3 +338,18 @@ if setime != lastimeres:
     csv = pd.read_csv("water.csv")
 else:
     print("数据未更新")
+
+content = "用电情况\n\n房间号:" + RoomNum + "\n\n系统编号:" + SysNum + "\n\n累计表字:" + TotNum + "\n\n当前已用:" + str(
+    Used) + "\n\n购电剩余:" + LeftNum + "\n\n上次通讯时间:" + LastDate + "\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html" + "\n\n\n\n用水情况\n\n结算时间：" + setime + "\n\n累计读数：" + cumread + "\n\n结算水量：" + sewatervol + "\n\n剩余金额：" + balance
+f.write(message)
+f.close()
+
+api = "https://sctapi.ftqq.com/SCT62936TXA1lLED0i5z9u5qmYceyWavU.send"
+
+title = u"购电剩余：" + LeftNum + u"购水剩余：" + balance
+
+data = {
+    "text": title,
+    "desp": content
+}
+req = requests.post(api, data=data)
