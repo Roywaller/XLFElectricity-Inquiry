@@ -69,7 +69,7 @@ LastDate = ''.join(df[1][4])
 
 LastUsed = pd.read_csv("Records.csv").iloc[-1]["表字"]
 
-Used = round(float(TotNum) - float(LastUsed), 3)
+Used = str(round(float(TotNum) - float(LastUsed), 3))
 print(type(Used))
 
 result_list = [[RoomNum, SysNum, TotNum, Used, LeftNum, LastDate, t]]
