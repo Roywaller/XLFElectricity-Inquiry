@@ -70,8 +70,6 @@ LastDate = ''.join(df[1][4])
 LastUsed = pd.read_csv("Records.csv").iloc[-1]["表字"]
 
 Used = str(round(float(TotNum) - float(LastUsed), 3))
-print(Used)
-print(type(Used))
 
 result_list = [[RoomNum, SysNum, TotNum, Used, LeftNum, LastDate, t]]
 
@@ -345,7 +343,7 @@ else:
 
 test = '123'
 content = "用电情况\n\n房间号:" + RoomNum + "\n\n系统编号:" + SysNum + "\n\n累计表字:" + TotNum + "\n\n当前已用:" + Used + \
-          "\n\n购电剩余:" + test + "\n\n上次通讯时间:" + test + "\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html" + \
+          "\n\n购电剩余:" + LeftNum + "\n\n上次通讯时间:" + LastDate + "\n\n https://roywaller.github.io/XLFElectricity-Inquiry/Records.html" + \
           "\n\n\n\n用水情况\n\n结算时间：" + test + "\n\n累计读数：" + test + "\n\n结算水量：" + test + "\n\n剩余金额：" + test
 
 #content = "用电情况\n\n房间号:" + RoomNum + "\n\n系统编号:" + SysNum + "\n\n累计表字:" + TotNum + "\n\n当前已用:" + Used + \
